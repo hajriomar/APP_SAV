@@ -1,9 +1,16 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
 
-@Schema()
+@Schema({
+  timestamps: {
+    createdAt: 'create_date',
+    updatedAt: 'update_date',
+  },
+})
 export class Vehicule extends Document {
 
+  create_date: Date;
+  update_date: Date;
   @Prop({ required: true })
   immatriculation: string;
 
@@ -22,7 +29,7 @@ export class Vehicule extends Document {
   @Prop()
   km: number;
 
-  @Prop({ type: Types.ObjectId, ref: "User" })
+  @Prop({ type: Types.ObjectId, ref: "Utilisateur" })
   user_id: Types.ObjectId;
 }
 

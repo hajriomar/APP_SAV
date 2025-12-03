@@ -2,21 +2,22 @@ import { Injectable,Logger,BadRequestException } from '@nestjs/common';
 import{SendresetpwdMailDto} from './type/dto/send-resetpwdmail.dto';
 import { MailerService } from '@nestjs-modules/mailer';
 import { Utilisateur } from 'src/utilisateur/schemas/utilisateur.schema';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { CreateMailDto } from './type/dto/create-mail.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 
 @Injectable()
 export class MailService {
-      private readonly logger = new Logger(MailService.name);
-      constructor(
-  @InjectRepository(Utilisateur)
-  private utilisateurRepository: Repository<Utilisateur>,
-  private readonly jwtService: JwtService,
-  private readonly mailerService: MailerService
-) {}
+  private readonly logger = new Logger(MailService.name);
+
+  constructor(
+    @InjectModel(Utilisateur.name)
+    private readonly utilisateurModel: Model<Utilisateur>,
+    private readonly jwtService: JwtService,
+    private readonly mailerService: MailerService,
+  ) {}
 
 
  async resetpasswordmail(dto : SendresetpwdMailDto): Promise<boolean> {
@@ -83,10 +84,12 @@ async verifierEmailBoutton(token: string) {
       secret: 'oshg2828samehsofienhajrighoziiazertvbhji'
     });
 
-    await this.utilisateurRepository.update(
-      { email: payload.email },
-      { verifier: true }
-    );
+    await this.utilisateurModel
+  .updateOne(
+    { email: payload.email },     
+    { $set: { verifier: true } },  
+  )
+  .exec();
 
     return 'Adresse email vérifiée avec succès !';
   } catch (error) {

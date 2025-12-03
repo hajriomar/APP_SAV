@@ -79,7 +79,7 @@ if (!user) {
 
 
 
-  async resetPwd(dto: ResetPasswordDto) {
+async resetPwd(dto: ResetPasswordDto) {
   let payload: any;
   try {
     payload = await this.jwtService.verify(dto.token, {
@@ -98,7 +98,8 @@ if (!user) {
   const hashedPassword = await bcrypt.hash(dto.newPassword, 10);
   user.password = hashedPassword;
 
-  await this.utilisateurservice.save(user);
+
+  await user.save();
 
   return { message: 'Mot de passe réinitialisé avec succès' };
 }

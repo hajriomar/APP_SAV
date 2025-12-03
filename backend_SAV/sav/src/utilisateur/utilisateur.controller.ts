@@ -1,34 +1,41 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param ,NotFoundException } from '@nestjs/common';
 import { UtilisateurService } from './utilisateur.service';
 import { CreateUtilisateurDto } from './type/dto/create-utilisateur.dto';
-import { UpdateUtilisateurDto } from './type/dto/update-utilisateur.dto';
+import { Utilisateur } from './schemas/utilisateur.schema';
 
 @Controller('utilisateur')
 export class UtilisateurController {
-  constructor(private readonly utilisateurService: UtilisateurService) {}
+  constructor(
+    private readonly utilisateurService: UtilisateurService,
+  ) {}
 
-  @Post()
-  create(@Body() createUtilisateurDto: CreateUtilisateurDto) {
-    return this.utilisateurService.create(createUtilisateurDto);
+  @Post('inscription')
+  async inscription(
+    @Body() createUtilisateurDto: CreateUtilisateurDto,
+  ): Promise<Utilisateur> {
+    return this.utilisateurService.inscription(createUtilisateurDto);
   }
 
   @Get()
-  findAll() {
+  async findAll(): Promise<Utilisateur[]> {
     return this.utilisateurService.findAll();
   }
 
+ 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.utilisateurService.findOne(+id);
+  async findOne(@Param('id') id: string): Promise<Utilisateur | null> {
+    return this.utilisateurService.findById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUtilisateurDto: UpdateUtilisateurDto) {
-    return this.utilisateurService.update(+id, updateUtilisateurDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.utilisateurService.remove(+id);
+  @Get('email/:email')
+  async findOneByEmail(
+    @Param('email') email: string,
+  ): Promise<any> {
+    const user = await this.utilisateurService.findOneByEmail(email);
+    if (!user) {
+      throw new NotFoundException('Utilisateur introuvable');
+    }
+    const { password, __v, ...safe } = user.toObject();
+    return safe;
   }
 }

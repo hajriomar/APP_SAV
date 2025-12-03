@@ -1,34 +1,30 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { APP_GUARD } from '@nestjs/core';
+
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { JwtModule } from '@nestjs/jwt';
-import { MailModule } from 'src/mail/mail.module';
-import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './strategies/jwt.strategy';
+
 import { UtilisateurModule } from 'src/utilisateur/utilisateur.module';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './guards/roles.guard';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
-  imports:[UtilisateurModule, 
+  imports: [
     PassportModule,
-JwtModule.register({
-      secret: process.env.JWT_SECRET,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'dev-secret',
       signOptions: { expiresIn: '1h' },
-    })
-    ,
-    forwardRef(() => MailModule)
+    }),
+    UtilisateurModule,
+    MailModule, 
   ],
   controllers: [AuthController],
-  providers: [AuthService,JwtStrategy,{
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,   
-    },
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,  
-    }],
-  exports:[JwtModule]
+  providers: [
+    AuthService,
+    JwtStrategy,
+  ],
+  exports: [JwtModule],
 })
 export class AuthModule {}
