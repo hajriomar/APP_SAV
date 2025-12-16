@@ -1,9 +1,8 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Types } from "mongoose";
-import {RendezVousEtat} from '../type/enum/rendezvous_etat.enum';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
+import { RendezVousEtat } from '../type/enum/rendezvous_etat.enum';
 
 @Schema({
-
   timestamps: {
     createdAt: 'create_date',
     updatedAt: 'update_date',
@@ -11,26 +10,23 @@ import {RendezVousEtat} from '../type/enum/rendezvous_etat.enum';
 })
 export class RendezVous extends Document {
 
-  create_date: Date;
-  update_date: Date;
-
-  @Prop({ type: Types.ObjectId, ref: "Utilisateur" })
+  @Prop({ type: Types.ObjectId, ref: 'Utilisateur', required: true })
   user_id: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: "Vehicule" })
+  @Prop({ type: Types.ObjectId, ref: 'Vehicule', required: true })
   vehicule_id: Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: "Atelier" })
-  atelier_id: Types.ObjectId;
+  //@Prop({ type: Types.ObjectId, ref: 'Atelier', required: true })
+  //atelier_id: Types.ObjectId;
 
-  @Prop()
-  type_rdv: string;
-
-  @Prop()
+  @Prop({ required: true })
   date: Date;
 
   @Prop()
   heure: string;
+
+  @Prop()
+  type_rdv: string;
 
   @Prop()
   message: string;

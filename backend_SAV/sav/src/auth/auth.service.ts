@@ -41,12 +41,8 @@ async login(dto: LoginDto) {
         throw new UnauthorizedException("compte non valider");
     }
 
-    const payload = {
-      sub: user.id,
-      email: user.email,
-    };
 
-    const token = this.jwtService.sign(payload);
+    const token = this.jwtService.sign({ sub: user._id, email: user.email });
 
     return {
       access_token: token,
@@ -65,7 +61,6 @@ if (!user) {
 
     const payload = { email : emaildto.email };
     const token = this.jwtService.sign(payload, {
-      secret:  process.env.JWT_SECRET,
       expiresIn: '15m', 
     });
     const dto ={
@@ -82,9 +77,7 @@ if (!user) {
 async resetPwd(dto: ResetPasswordDto) {
   let payload: any;
   try {
-    payload = await this.jwtService.verify(dto.token, {
-      secret: process.env.JWT_SECRET,
-    });
+    payload = await this.jwtService.verify(dto.token);
   } catch (err) {
     throw new UnauthorizedException('Token invalide ou expiré');
   }
