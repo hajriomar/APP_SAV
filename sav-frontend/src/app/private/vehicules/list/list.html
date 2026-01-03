@@ -1,0 +1,64 @@
+<div class="vehicules-container">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h1>Mes Véhicules</h1>
+      <p>Gérez vos véhicules enregistrés</p>
+    </div>
+
+    <button class="btn-add" routerLink="/vehicules/create">
+      ➕ Ajouter un véhicule
+    </button>
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Chargement...</p>
+  </div>
+
+  <!-- ERROR -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- EMPTY STATE -->
+  <div *ngIf="!isLoading && vehicules.length === 0" class="empty-state">
+    <div class="empty-icon">🚗</div>
+    <h3>Aucun véhicule enregistré</h3>
+    <p>Commencez par ajouter votre premier véhicule</p>
+
+    <button class="btn-add" routerLink="/vehicules/create">
+      ➕ Ajouter un véhicule
+    </button>
+  </div>
+
+  <!-- VEHICULES GRID -->
+  <div *ngIf="!isLoading && vehicules.length > 0" class="vehicules-list">
+
+    <div *ngFor="let vehicule of vehicules" class="vehicule-item">
+
+      <div class="vehicule-left">
+        <div class="vehicule-icon">🚗</div>
+
+        <div class="vehicule-info">
+          <h3>{{ vehicule.marque }} {{ vehicule.modele }}</h3>
+
+          <p><span>Immatriculation:</span> {{ vehicule.immatriculation }}</p>
+          <p *ngIf="vehicule.annee"><span>Année:</span> {{ vehicule.annee }}</p>
+          <p *ngIf="vehicule.couleur"><span>Couleur:</span> {{ vehicule.couleur }}</p>
+          <p *ngIf="vehicule.km"><span>Kilométrage:</span> {{ vehicule.km | number }} km</p>
+        </div>
+      </div>
+
+      <div class="vehicule-actions">
+        <button class="btn-action edit" (click)="editVehicule(vehicule._id)">✏️</button>
+        <button class="btn-action delete" (click)="deleteVehicule(vehicule._id)">🗑️</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

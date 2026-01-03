@@ -1,0 +1,18 @@
+<nav class="navbar">
+  <div class="nav-left">
+    <div class="brand-logo">🚗</div>
+    <span class="brand-name">SAV Auto</span>
+  </div>
+
+  <div class="nav-center">
+    <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Tableau de bord</a>
+    <a routerLink="/vehicules" routerLinkActive="active">Véhicules</a>
+    <a routerLink="/reclamations" routerLinkActive="active">Réclamations</a>
+    <a routerLink="/rendezvous" routerLinkActive="active">Rendez-vous</a>
+  </div>
+
+  <div class="nav-right">
+    <span class="user-name">{{ currentUser?.prenom }} {{ currentUser?.nom }}</span>
+    <button class="btn-logout" (click)="logout()">Déconnexion</button>
+  </div>
+</nav>

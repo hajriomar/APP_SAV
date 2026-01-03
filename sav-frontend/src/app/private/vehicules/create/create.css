@@ -1,0 +1,130 @@
+/* PAGE ENTIRELY CENTERED */
+.page-center {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* HEADER On Top */
+.page-header {
+  width: 100%;
+  max-width: 480px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  align-self: flex-start;   /* ⭐ FIX : met le bouton complètement à gauche */
+}
+
+/* BUTTON RETOUR */
+.btn-return {
+  background: none;
+  border: none;
+  color: #4f9cf9;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0;
+  transition: 0.25s ease;
+}
+
+.btn-return:hover {
+  color: #3b82f6;
+  transform: translateX(-3px);
+}
+
+/* CARD */
+.form-card {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+/* TITLES */
+.form-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.form-subtitle {
+  color: #6b7280;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+/* INPUTS */
+.form-group {
+  text-align: left;
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  display: block;
+  color: #374151;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 2px solid #d1d5db;
+  background: #f9fafb;
+  font-size: 1rem;
+  transition: 0.25s ease;
+}
+
+.form-input:focus {
+  border-color: #4f9cf9;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(79,156,249,0.20);
+}
+
+/* BUTTONS */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4f9cf9, #667eea);
+  color: white;
+  padding: 0.8rem 1.6rem;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(102,126,234,0.35);
+}
+
+.btn-secondary {
+  background: white;
+  border: 2px solid #4f9cf9;
+  color: #4f9cf9;
+  padding: 0.8rem 1.6rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.btn-secondary:hover {
+  background: rgba(79,156,249,0.08);
+}

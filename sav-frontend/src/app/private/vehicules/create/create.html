@@ -1,0 +1,52 @@
+<div class="page-center">
+
+  <!-- HEADER AVEC RETOUR -->
+  <div class="page-header">
+    <button routerLink="/vehicules" class="btn-return">← Retour à la liste</button>
+  </div>
+
+  <div class="form-card">
+
+    <h1 class="form-title">Ajouter un véhicule</h1>
+    <p class="form-subtitle">Veuillez remplir les informations ci-dessous</p>
+
+    <form [formGroup]="vehiculeForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label>Immatriculation *</label>
+        <input type="text" class="form-input" formControlName="immatriculation" placeholder="AB-123-CD">
+      </div>
+
+      <div class="form-group">
+        <label>Marque *</label>
+        <input type="text" class="form-input" formControlName="marque" placeholder="Renault">
+      </div>
+
+      <div class="form-group">
+        <label>Modèle *</label>
+        <input type="text" class="form-input" formControlName="modele" placeholder="Clio">
+      </div>
+
+      <div class="form-group">
+        <label>Année</label>
+        <input type="number" class="form-input" formControlName="annee" placeholder="2020">
+      </div>
+
+      <div class="form-group">
+        <label>Couleur</label>
+        <input type="text" class="form-input" formControlName="couleur" placeholder="Rouge">
+      </div>
+
+      <div class="form-group">
+        <label>Kilométrage</label>
+        <input type="number" class="form-input" formControlName="km" placeholder="50000">
+      </div>
+
+      <div class="form-actions">
+        <button routerLink="/vehicules" type="button" class="btn-secondary">Annuler</button>
+        <button type="submit" class="btn-primary">Enregistrer</button>
+      </div>
+
+    </form>
+  </div>
+</div>

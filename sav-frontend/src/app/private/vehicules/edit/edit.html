@@ -1,0 +1,67 @@
+<div class="page-center">
+
+  <!-- Bouton retour -->
+  <div class="page-header">
+    <button routerLink="/vehicules" class="btn-return">← Retour à la liste</button>
+  </div>
+
+  <!-- Formulaire -->
+  <div class="form-card" *ngIf="!isLoading">
+
+    <h1 class="form-title">Modifier un véhicule</h1>
+    <p class="form-subtitle">Modifiez les informations du véhicule</p>
+
+    <form [formGroup]="vehiculeForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label>Immatriculation *</label>
+        <input class="form-input" formControlName="immatriculation">
+      </div>
+
+      <div class="form-group">
+        <label>Marque *</label>
+        <input class="form-input" formControlName="marque">
+      </div>
+
+      <div class="form-group">
+        <label>Modèle *</label>
+        <input class="form-input" formControlName="modele">
+      </div>
+
+      <div class="form-group">
+        <label>Année</label>
+        <input type="number" class="form-input" formControlName="annee">
+      </div>
+
+      <div class="form-group">
+        <label>Couleur</label>
+        <input class="form-input" formControlName="couleur">
+      </div>
+
+      <div class="form-group">
+        <label>Kilométrage</label>
+        <input type="number" class="form-input" formControlName="km">
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-actions">
+        <button type="button" routerLink="/vehicules" class="btn-secondary">Annuler</button>
+        <button type="submit" class="btn-primary" [disabled]="saving">
+          {{ saving ? 'Enregistrement...' : 'Mettre à jour' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Chargement...</p>
+  </div>
+
+</div>
